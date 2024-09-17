@@ -16,7 +16,7 @@
     "description": "giáo trình minna nihongo dành cho N4"
   },
   {
-    "productId": "2",
+    "productId": "3",
     "name": "minna nihongo 2",
     "categoryId": "1",
     "price": "60000",
@@ -24,7 +24,7 @@
     "description": "giáo trình minna nihongo dành cho N4"
   },
   {
-    "productId": "2",
+    "productId": "4",
     "name": "minna nihongo 2",
     "categoryId": "1",
     "price": "60000",

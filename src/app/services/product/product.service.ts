@@ -12,4 +12,8 @@ export class ProductService {
   getListProduct(){
     return this.http.get<Product[]>(`${this.API}/product`)
   }
+
+  saveProduct(product: Product){
+    return this.http.post<Product>(`${this.API}/product`, product)
+  }
 }

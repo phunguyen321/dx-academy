@@ -12,6 +12,7 @@ import { Product, ProductTable } from '../../model/product';
 import { map, Subject, takeUntil } from 'rxjs';
 import { DetailProductComponent } from '../detail-product/detail-product.component';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-list-product',
   standalone: true,
@@ -28,7 +29,8 @@ export class ListProductComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   constructor(
     private productService: ProductService,
-    private resolver: ComponentFactoryResolver
+    private resolver: ComponentFactoryResolver,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +62,10 @@ export class ListProductComponent implements OnInit, OnDestroy {
   goBack() {
     this.isDetailVisible = false;
     this.container.clear();
+  }
+
+  onCreateProduct(){
+    this.route.navigate(['product/create']).then();
   }
 
   ngOnDestroy(): void {

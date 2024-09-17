@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           return;
         }
         if (user.username === username && user.password === password) {
-          this.router.navigate(['list']);
+          this.router.navigate(['product/list']);
         }
       });
   }
