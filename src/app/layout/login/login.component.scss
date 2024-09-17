@@ -1,0 +1,22 @@
+.max-w {
+  max-width: 50%;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .group-button {
+    display: flex;
+  }
+}
+
+::ng-deep {
+  .login-app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+}
