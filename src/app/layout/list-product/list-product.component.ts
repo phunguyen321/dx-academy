@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ComponentFactoryResolver,
   OnDestroy,
@@ -13,10 +14,11 @@ import { map, Subject, takeUntil } from 'rxjs';
 import { DetailProductComponent } from '../detail-product/detail-product.component';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { PricePipe } from '../../pipe/price.pipe';
 @Component({
   selector: 'app-list-product',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule],
+  imports: [MatTableModule, MatButtonModule, PricePipe],
   templateUrl: './list-product.component.html',
   styleUrl: './list-product.component.scss',
 })

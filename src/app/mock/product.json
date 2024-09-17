@@ -1,6 +1,6 @@
 [
   {
-    "productId": "1",
+    "id": "1",
     "name": "minna nihongo 1",
     "categoryId": "1",
     "price": "50000",
@@ -8,7 +8,7 @@
     "description": "giáo trình minna nihongo dành cho N5"
   },
   {
-    "productId": "2",
+    "id": "2",
     "name": "minna nihongo 2",
     "categoryId": "1",
     "price": "60000",
@@ -16,7 +16,7 @@
     "description": "giáo trình minna nihongo dành cho N4"
   },
   {
-    "productId": "3",
+    "id": "3",
     "name": "minna nihongo 2",
     "categoryId": "1",
     "price": "60000",
@@ -24,7 +24,7 @@
     "description": "giáo trình minna nihongo dành cho N4"
   },
   {
-    "productId": "4",
+    "id": "4",
     "name": "minna nihongo 2",
     "categoryId": "1",
     "price": "60000",
