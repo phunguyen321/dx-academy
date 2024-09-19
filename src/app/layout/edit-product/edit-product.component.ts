@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -14,7 +19,7 @@ import { Guid } from 'guid-typescript';
   imports: [MatFormFieldModule, MatInputModule, MatButtonModule],
   templateUrl: './edit-product.component.html',
   styleUrl: './edit-product.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditProductComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
@@ -29,9 +34,9 @@ export class EditProductComponent implements OnInit, OnDestroy {
 
   onSaveProduct() {
     const id = Guid.create().toString().replace(/-/g, '');
-    const abc:Product = {
+    const abc: Product = {
       id,
-      price: '1111',
+      price: 1111111,
       categoryId: '123',
       description: '123123',
       name: '12313',

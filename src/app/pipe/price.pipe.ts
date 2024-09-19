@@ -2,14 +2,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'price',
-  standalone: true
+  standalone: true,
 })
 export class PricePipe implements PipeTransform {
-
-  transform(value: string, currencySymbol: string) {
-    console.log(currencySymbol)
-    const price = Number(value).toLocaleString('vi-VN');
+  transform(value: number, currencySymbol: string) {
+    console.log(currencySymbol);
+    const price = value.toLocaleString('vi-VN');
     return `${price} ${currencySymbol}`;
   }
-
 }

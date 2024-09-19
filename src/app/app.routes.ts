@@ -39,4 +39,16 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'category',
+    children: [
+      {
+        path: 'list',
+        loadComponent: () =>
+          import(
+            './layout/category/list-category/list-category.component'
+          ).then((mod) => mod.ListCategoryComponent),
+      },
+    ],
+  },
 ];

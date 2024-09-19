@@ -3,32 +3,32 @@
     "id": "1",
     "name": "minna nihongo 1",
     "categoryId": "1",
-    "price": "50000",
-    "status": "con hang",
+    "price": 50000,
+    "status": 1,
     "description": "giáo trình minna nihongo dành cho N5"
   },
   {
     "id": "2",
     "name": "minna nihongo 2",
     "categoryId": "1",
-    "price": "60000",
-    "status": "con hang",
+    "price": 60000,
+    "status": 0,
     "description": "giáo trình minna nihongo dành cho N4"
   },
   {
     "id": "3",
     "name": "minna nihongo 2",
     "categoryId": "1",
-    "price": "60000",
-    "status": "con hang",
+    "price": 1000000,
+    "status": 1,
     "description": "giáo trình minna nihongo dành cho N4"
   },
   {
     "id": "4",
     "name": "minna nihongo 2",
     "categoryId": "1",
-    "price": "60000",
-    "status": "con hang",
+    "price": 999999,
+    "status": 0,
     "description": "giáo trình minna nihongo dành cho N4"
   }
 ]
