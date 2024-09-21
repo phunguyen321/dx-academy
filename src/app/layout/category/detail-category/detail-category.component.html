@@ -1,1 +1,31 @@
-<p>detail-category works!</p>
+<div class="category-wrapper" [formGroup]="categoryForm">
+  <h2>{{ isDetail ? "Edit" : "Create" }} category</h2>
+  <mat-form-field>
+    <mat-label>name </mat-label>
+    <input [formControlName]="formField.name" matInput />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>description</mat-label>
+    <textarea [formControlName]="formField.description" matInput></textarea>
+  </mat-form-field>
+</div>
+<button mat-flat-button (click)="onBackCategory()">Back</button>
+
+@if (isDetail) {
+
+<button
+  mat-flat-button
+  [disabled]="categoryForm.invalid"
+  (click)="onUpdateCategory()"
+>
+  Update
+</button>
+} @else {
+<button
+  mat-flat-button
+  [disabled]="categoryForm.invalid"
+  (click)="onSaveCategory()"
+>
+  Save
+</button>
+}

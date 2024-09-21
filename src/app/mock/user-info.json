@@ -1,12 +1,12 @@
 [
   {
-    "id": "1",
+    "userid": "00001",
     "name": "Nguyen Quoc Phu",
     "username": "user",
     "password": "pass"
   },
   {
-    "id": "2",
+    "userid": "00002",
     "name": "boku wa phu de su",
     "username": "user1",
     "password": "pass"

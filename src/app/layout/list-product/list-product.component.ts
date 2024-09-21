@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   OnDestroy,
@@ -17,7 +18,6 @@ import { Router } from '@angular/router';
 import { PricePipe } from '../../pipe/price.pipe';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CategoryPipe } from '../../pipe/category.pipe';
 import { CategoryService } from '../../services/category/category.service';
 import { MatCardModule } from '@angular/material/card';
 import {
@@ -28,8 +28,10 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { CategoryPick } from '../../model/category';
+import { Category, CategoryPick } from '../../model/category';
 import { FormField } from '../../constant/enum';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ProductPipe } from '../../pipe/product.pipe';
 
 @Component({
   selector: 'app-list-product',
@@ -40,14 +42,16 @@ import { FormField } from '../../constant/enum';
     MatTableModule,
     MatButtonModule,
     PricePipe,
-    CategoryPipe,
+    ProductPipe,
     MatCardModule,
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './list-product.component.html',
   styleUrl: './list-product.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListProductComponent implements OnInit, OnDestroy {
   @ViewChild('detailContainer', { read: ViewContainerRef, static: true })
@@ -59,16 +63,21 @@ export class ListProductComponent implements OnInit, OnDestroy {
   productForm!: FormGroup;
   formField = FormField;
   originalProductData: ProductTable[] = [];
+  originalCategoryData: Category[] = [];
+  isLoading = false;
+  dataFilter: { name: string; category: string } = { name: '', category: '' };
   destroy$ = new Subject();
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
     private cfr: ComponentFactoryResolver,
     private route: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.productForm = this.formBuilder.group({
       name: [''],
       category: [''],
@@ -83,23 +92,23 @@ export class ListProductComponent implements OnInit, OnDestroy {
             const nameCategory = listCategory.find(
               (cate) => cate.id === prod.categoryId
             )?.name;
-            return {
-              id: prod.id,
-              name: prod.name,
-              price: prod.price,
-              category: nameCategory,
-              status: prod.status,
-            };
+            return { ...prod, category: nameCategory };
           });
-          const category = listCategory.map((cate) => cate.name);
-
-          return [products, category];
+          return { products, listCategory };
         })
       )
-      .subscribe(([products, category]) => {
-        this.productData = products as ProductTable[];
-        this.categoryData = category as string[];
-        this.originalProductData = this.productData;
+      .subscribe({
+        next: ({ products, listCategory }) => {
+          this.productData = products as ProductTable[];
+          this.categoryData = listCategory.map((cate) => cate.name) as string[];
+          this.originalCategoryData = listCategory;
+          this.originalProductData = this.productData;
+          this.isLoading = false;
+          this.cd.detectChanges();
+        },
+        error: () => {
+          this.isLoading = false;
+        },
       });
   }
 
@@ -108,7 +117,25 @@ export class ListProductComponent implements OnInit, OnDestroy {
     this.containerRef.clear();
     const factory = this.cfr.resolveComponentFactory(DetailProductComponent);
     const componentRef = this.containerRef.createComponent(factory);
-    componentRef.instance.data = row;
+    componentRef.instance.data = { row, category: this.originalCategoryData };
+    componentRef.instance.isDetail = true;
+    componentRef.instance.child.subscribe((value: boolean | Product) => {
+      if (value) {
+        if (typeof value === 'object') {
+          const index = this.productData.findIndex((p) => p.id === value.id);
+          const category = this.originalCategoryData.find(
+            (cate) => cate.id === value.categoryId
+          )?.name;
+          const product = { ...value, category };
+          this.productData[index] = product as ProductTable;
+          this.productData = [...this.productData];
+          this.originalProductData = this.productData;
+        }
+        this.containerRef.clear();
+        this.isDetailVisible = false;
+        this.cd.detectChanges();
+      }
+    });
   }
 
   goBack() {
@@ -121,24 +148,37 @@ export class ListProductComponent implements OnInit, OnDestroy {
   }
 
   onCreateProduct() {
-    this.route.navigate(['product/create']).then();
+    this.route.navigate(['product/create'], {
+      state: { categoryData: this.originalCategoryData },
+    });
   }
 
   searchProduct(formField: string) {
     switch (formField) {
       case FormField.name:
-        const abc = this.productForm.get(formField)?.value;
-        console.log(abc);
-        this.productData = this.originalProductData.filter((prod) =>
-          prod.name.includes(abc)
-        );
+        const name = this.productForm.get(formField)?.value;
+        this.dataFilter.name = name;
         break;
       case FormField.category:
-        console.log(321);
+        const category = this.productForm.get(formField)?.value;
+        this.dataFilter.category = category;
         break;
       default:
         break;
     }
+    this.filter();
+  }
+
+  filter() {
+    this.productData = this.originalProductData.filter(
+      (prod) =>
+        (!this.dataFilter.name ||
+          prod.name
+            .toLowerCase()
+            .includes(this.dataFilter.name.toLowerCase())) &&
+        (!this.dataFilter.category ||
+          prod.category === this.dataFilter.category)
+    );
   }
 
   ngOnDestroy(): void {

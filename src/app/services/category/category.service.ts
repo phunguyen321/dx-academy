@@ -13,4 +13,15 @@ export class CategoryService {
   getListCategory() {
     return this.http.get<Category[]>(`${this.API}/category`);
   }
+
+  saveCategory(category: Category) {
+    return this.http.post<Category>(`${this.API}/category`, category);
+  }
+
+  updateCategory(idCategory: string, category: Category) {
+    return this.http.put<Category>(
+      `${this.API}/category/${idCategory}`,
+      category
+    );
+  }
 }

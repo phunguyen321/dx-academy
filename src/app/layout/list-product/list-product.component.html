@@ -1,20 +1,18 @@
 <div>
-  <h1>Product</h1>
-  <!-- <div>
-  <mat-form-field>
-    <mat-label>product name </mat-label>
-    <input matInput />
-  </mat-form-field>
-</div> -->
+  @if (isLoading) {
+  <div class="overlay">
+    <mat-spinner></mat-spinner>
+  </div>
+  } @else { @if (!isDetailVisible) {
+  <h2>Product List</h2>
   <mat-card [formGroup]="productForm" appearance="outlined" class="max-w">
-    <h3>search</h3>
-    aaaaaa{{ productData.length }}
     <mat-card-content>
       <mat-form-field>
         <mat-label>product name </mat-label>
         <input
           [formControlName]="formField.name"
           (blur)="searchProduct(formField.name)"
+          (keyup.enter)="searchProduct(formField.name)"
           matInput
         />
       </mat-form-field>
@@ -35,7 +33,7 @@
     <button mat-flat-button (click)="onCreateProduct()">create</button>
     <button mat-flat-button (click)="goToCategory()">category</button>
   </div>
-  @if (!isDetailVisible) {
+
   <table mat-table [dataSource]="productData" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -59,7 +57,7 @@
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>status</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.status | category }}
+        {{ element.status | product }}
       </td>
     </ng-container>
 
@@ -70,10 +68,7 @@
       (click)="onRowClick(row)"
     ></tr>
   </table>
-  }
+  } }
 
   <ng-template #detailContainer></ng-template>
-  @if (isDetailVisible) {
-  <button mat-flat-button (click)="goBack()">back</button>
-  }
 </div>

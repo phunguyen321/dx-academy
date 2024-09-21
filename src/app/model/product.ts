@@ -3,7 +3,7 @@ export interface Product {
   name: string;
   categoryId: string;
   price: number;
-  status: boolean;
+  status: number;
   description: string;
 }
 
@@ -12,3 +12,8 @@ export type ProductPick = Pick<Product, 'id' | 'name' | 'price' | 'status'>;
 export type ProductTable = ProductPick & {
   category: string;
 };
+
+export type ProductUpdate = Pick<
+  Product,
+  'name' | 'price' | 'status' | 'description' | 'categoryId'
+>;

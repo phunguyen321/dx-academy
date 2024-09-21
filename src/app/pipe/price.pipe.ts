@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PricePipe implements PipeTransform {
   transform(value: number, currencySymbol: string) {
-    console.log(currencySymbol);
     const price = value.toLocaleString('vi-VN');
     return `${price} ${currencySymbol}`;
   }

@@ -1,1 +1,57 @@
-<p>{{data.name}}</p>
+<h2>{{ isDetail ? "Edit" : "Create" }} product</h2>
+<div [formGroup]="productForm" class="detail-product">
+  <mat-form-field>
+    <mat-label>name</mat-label>
+    <input [formControlName]="formField.name" matInput />
+    @if (productForm.get(formField.name)?.invalid) {
+    <mat-error>please enter name</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>price</mat-label>
+    <input [formControlName]="formField.price" matInput />
+    @if (productForm.get(formField.price)?.invalid) {
+    <mat-error>please enter price</mat-error>
+    }
+  </mat-form-field>
+  <mat-radio-group [formControlName]="formField.status">
+    <mat-radio-button [value]="0">Out of stock</mat-radio-button>
+    <mat-radio-button [value]="1">In stock</mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field>
+    <mat-label>category</mat-label>
+    <mat-select [formControlName]="formField.category">
+      @for (cate of categoryList; track cate.id) {
+      <mat-option [value]="cate.id">{{ cate.name }}</mat-option>
+      }
+    </mat-select>
+    @if (productForm.get(formField.category)?.invalid) {
+    <mat-error>please select category</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea [formControlName]="formField.description" matInput></textarea>
+  </mat-form-field>
+</div>
+<div>
+  <button mat-flat-button (click)="onBackListProduct()">back</button>
+  @if (isDetail) {
+  <button
+    mat-flat-button
+    [disabled]="productForm.invalid"
+    (click)="onUpdateProduct()"
+  >
+    update
+  </button>
+  } @else {
+  <button
+    mat-flat-button
+    [disabled]="productForm.invalid"
+    (click)="onSaveProduct()"
+  >
+    save
+  </button>
+
+  }
+</div>

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './layout/login/login.component';
 import { ListProductComponent } from './layout/list-product/list-product.component';
-import { EditProductComponent } from './layout/edit-product/edit-product.component';
+import { authGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
   { redirectTo: 'login', path: '', pathMatch: 'full' },
@@ -15,6 +15,7 @@ export const routes: Routes = [
   },
   {
     path: 'product',
+    canActivate: [authGuard],
     children: [
       {
         path: 'list',
@@ -26,21 +27,22 @@ export const routes: Routes = [
       {
         path: 'edit:idProduct',
         loadComponent: () =>
-          import('./layout/edit-product/edit-product.component').then(
-            (mod) => mod.EditProductComponent
+          import('./layout/detail-product/detail-product.component').then(
+            (mod) => mod.DetailProductComponent
           ),
       },
       {
         path: 'create',
         loadComponent: () =>
-          import('./layout/edit-product/edit-product.component').then(
-            (mod) => mod.EditProductComponent
+          import('./layout/detail-product/detail-product.component').then(
+            (mod) => mod.DetailProductComponent
           ),
       },
     ],
   },
   {
     path: 'category',
+    canActivate: [authGuard],
     children: [
       {
         path: 'list',
@@ -48,6 +50,13 @@ export const routes: Routes = [
           import(
             './layout/category/list-category/list-category.component'
           ).then((mod) => mod.ListCategoryComponent),
+      },
+      {
+        path: 'create',
+        loadComponent: () =>
+          import(
+            './layout/category/detail-category/detail-category.component'
+          ).then((mod) => mod.DetailCategoryComponent),
       },
     ],
   },

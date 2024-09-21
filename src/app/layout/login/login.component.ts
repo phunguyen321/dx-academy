@@ -18,6 +18,7 @@ import {
 import { LoginService } from '../../services/login/login.service';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { FormField } from '../../constant/enum';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +38,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup;
+  formField = FormField;
   destroy$ = new Subject();
   constructor(
     private formBuilder: FormBuilder,
@@ -70,6 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           return;
         }
         if (user.username === username && user.password === password) {
+          localStorage.setItem('token', 'true');
           this.router.navigate(['product/list']);
         }
       });
