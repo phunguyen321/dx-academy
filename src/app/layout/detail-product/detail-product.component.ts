@@ -78,7 +78,10 @@ export class DetailProductComponent {
     }
     this.productForm = this.formBuilder.group({
       name: [this.data?.row?.name || '', Validators.required],
-      price: [this.data?.row?.price || '', Validators.required],
+      price: [
+        this.data?.row?.price || '',
+        [Validators.required, Validators.pattern('^[0-9]*$')],
+      ],
       category: [this.data?.row?.categoryId || '', Validators.required],
       description: [this.data?.row?.description || ''],
       status: [this.data?.row?.status ?? null, Validators.required],
@@ -119,8 +122,8 @@ export class DetailProductComponent {
       status: this.productForm.get(FormField.status)?.value,
     };
     this.productService.updateProduct(idUpdate, product).subscribe({
-      next: (va) => {
-        this.child.emit(va);
+      next: (val) => {
+        this.child.emit(val);
       },
       error: (error) => {
         console.log(error);

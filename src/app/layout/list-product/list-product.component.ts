@@ -32,6 +32,7 @@ import { Category, CategoryPick } from '../../model/category';
 import { FormField } from '../../constant/enum';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProductPipe } from '../../pipe/product.pipe';
+import { StatusProductDirective } from '../../directive/status-product.directive';
 
 @Component({
   selector: 'app-list-product',
@@ -48,6 +49,7 @@ import { ProductPipe } from '../../pipe/product.pipe';
     ReactiveFormsModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    StatusProductDirective,
   ],
   templateUrl: './list-product.component.html',
   styleUrl: './list-product.component.scss',

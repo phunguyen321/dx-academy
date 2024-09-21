@@ -1,11 +1,20 @@
-import { Directive } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[appStatusProduct]',
-  standalone: true
+  standalone: true,
 })
-export class StatusProductDirective {
+export class StatusProductDirective implements AfterViewInit {
+  constructor(private el: ElementRef) {}
 
-  constructor() { }
-
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      const element = this.el.nativeElement;
+      if (element.innerText === 'In stock') {
+        element.style.color = 'green';
+      } else {
+        element.style.color = 'red';
+      }
+    });
+  }
 }
