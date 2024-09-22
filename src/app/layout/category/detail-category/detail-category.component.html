@@ -1,31 +1,37 @@
 <div class="category-wrapper" [formGroup]="categoryForm">
   <h2>{{ isDetail ? "Edit" : "Create" }} category</h2>
   <mat-form-field>
-    <mat-label>name </mat-label>
+    <mat-label>Name</mat-label>
     <input [formControlName]="formField.name" matInput />
+    @if (categoryForm.get(formField.name)?.invalid) {
+    <mat-error>Please enter name</mat-error>
+    }
   </mat-form-field>
   <mat-form-field>
-    <mat-label>description</mat-label>
+    <mat-label>Description</mat-label>
     <textarea [formControlName]="formField.description" matInput></textarea>
+    @if (categoryForm.get(formField.description)?.invalid) {
+    <mat-error>Please select description</mat-error>
+    }
   </mat-form-field>
 </div>
-<button mat-flat-button (click)="onBackCategory()">Back</button>
-
-@if (isDetail) {
-
-<button
-  mat-flat-button
-  [disabled]="categoryForm.invalid"
-  (click)="onUpdateCategory()"
->
-  Update
-</button>
-} @else {
-<button
-  mat-flat-button
-  [disabled]="categoryForm.invalid"
-  (click)="onSaveCategory()"
->
-  Save
-</button>
-}
+<div class="group-btn-action">
+  <button mat-flat-button (click)="onBackCategory()">Back</button>
+  @if (isDetail) {
+  <button
+    mat-flat-button
+    [disabled]="categoryForm.invalid"
+    (click)="onUpdateCategory()"
+  >
+    Update
+  </button>
+  } @else {
+  <button
+    mat-flat-button
+    [disabled]="categoryForm.invalid"
+    (click)="onSaveCategory()"
+  >
+    Save
+  </button>
+  }
+</div>

@@ -1,0 +1,8 @@
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  .group-btn {
+    display: flex;
+    gap: 8px;
+  }
+}

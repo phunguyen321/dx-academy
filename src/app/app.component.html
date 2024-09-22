@@ -1,6 +1,4 @@
-@if (showLogoutButton) {
-<div>
-  <button mat-flat-button (click)="logout()">Logout</button>
-</div>
+@if (isDisplayHeader) {
+<app-header></app-header>
 }
 <router-outlet></router-outlet>

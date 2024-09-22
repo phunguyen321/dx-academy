@@ -5,14 +5,6 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { Product, ProductTable, ProductUpdate } from '../../model/product';
-import { Guid } from 'guid-typescript';
-import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
-import { ProductService } from '../../services/product/product.service';
 import {
   FormBuilder,
   FormGroup,
@@ -20,11 +12,19 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { FormField } from '../../constant/enum';
-import { MatSelectModule } from '@angular/material/select';
-import { CategoryService } from '../../services/category/category.service';
-import { Category } from '../../model/category';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
+import { Guid } from 'guid-typescript';
+import { Subject, takeUntil } from 'rxjs';
+import { FormField } from '../../../constant/enum';
+import { Category } from '../../../model/category';
+import { Product } from '../../../model/product';
+import { CategoryService } from '../../../services/category/category.service';
+import { ProductService } from '../../../services/product/product.service';
 
 @Component({
   selector: 'app-detail-product',

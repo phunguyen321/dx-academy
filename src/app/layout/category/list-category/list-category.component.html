@@ -3,31 +3,44 @@
   <mat-spinner></mat-spinner>
 </div>
 } @else { @if (!isDetailVisible && !isLoading) {
-<button mat-flat-button (click)="onCreateCategory()">create</button>
-<h2>List category</h2>
-<table mat-table [dataSource]="categoryData" class="mat-elevation-z8">
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-  </ng-container>
+<h2>Category list</h2>
+<div class="category">
+  <mat-card appearance="outlined" class="max-w">
+    <mat-card-content class="mat-card-search">
+      <mat-form-field>
+        <mat-label>Category name </mat-label>
+        <input
+          [(ngModel)]="categoryKeyword"
+          (input)="searchCategory()"
+          matInput
+        />
+      </mat-form-field>
+      <button mat-flat-button (click)="onCreateCategory()">create</button>
+    </mat-card-content>
+  </mat-card>
 
-  <ng-container matColumnDef="description">
-    <th mat-header-cell *matHeaderCellDef>description</th>
-    <td mat-cell *matCellDef="let element">
-      {{ element.description }}
-    </td>
-  </ng-container>
+  <table mat-table [dataSource]="categoryData" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr
-    mat-row
-    *matRowDef="let row; columns: displayedColumns"
-    (click)="onRowClick(row)"
-  ></tr>
-</table>
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.description }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="onRowClick(row)"
+    ></tr>
+  </table>
+</div>
+
 } }
 
 <div #detailContainer></div>
-@if(!isDetailVisible){
-<button mat-flat-button (click)="onBackProduct()">Back</button>
-}

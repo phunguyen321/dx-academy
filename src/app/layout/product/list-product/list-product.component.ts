@@ -8,31 +8,30 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
-import { ProductService } from '../../services/product/product.service';
-import { Product, ProductTable } from '../../model/product';
-import { combineLatest, map, Subject, takeUntil } from 'rxjs';
-import { DetailProductComponent } from '../detail-product/detail-product.component';
-import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
-import { PricePipe } from '../../pipe/price.pipe';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { CategoryService } from '../../services/category/category.service';
-import { MatCardModule } from '@angular/material/card';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { Category, CategoryPick } from '../../model/category';
-import { FormField } from '../../constant/enum';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ProductPipe } from '../../pipe/product.pipe';
-import { StatusProductDirective } from '../../directive/status-product.directive';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { combineLatest, map, Subject } from 'rxjs';
+import { FormField } from '../../../constant/enum';
+import { StatusProductDirective } from '../../../directive/status-product.directive';
+import { Category } from '../../../model/category';
+import { Product, ProductTable } from '../../../model/product';
+import { PricePipe } from '../../../pipe/price.pipe';
+import { ProductPipe } from '../../../pipe/product.pipe';
+import { CategoryService } from '../../../services/category/category.service';
+import { ProductService } from '../../../services/product/product.service';
+import { DetailProductComponent } from '../detail-product/detail-product.component';
 
 @Component({
   selector: 'app-list-product',
@@ -143,10 +142,6 @@ export class ListProductComponent implements OnInit, OnDestroy {
   goBack() {
     this.isDetailVisible = false;
     this.containerRef.clear();
-  }
-
-  goToCategory() {
-    this.route.navigate(['category/list']);
   }
 
   onCreateProduct() {

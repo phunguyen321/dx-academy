@@ -20,3 +20,16 @@
   align-items: center;
   z-index: 1000;
 }
+
+:host {
+  .category {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    .mat-card-search {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}

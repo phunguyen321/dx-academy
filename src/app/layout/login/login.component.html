@@ -5,14 +5,14 @@
         <mat-label>Username</mat-label>
         <input formControlName="username" matInput type="text" />
         @if (loginForm.get(formField.username)?.invalid) {
-        <mat-error>please enter username</mat-error>
+        <mat-error>Please enter username</mat-error>
         }
       </mat-form-field>
       <mat-form-field>
         <mat-label>Password</mat-label>
         <input formControlName="password" matInput type="password" />
         @if (loginForm.get(formField.password)?.invalid) {
-        <mat-error>please enter password</mat-error>
+        <mat-error>Please enter password</mat-error>
         }
       </mat-form-field>
       <div class="group-button">

@@ -9,18 +9,30 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Category } from '../../../model/category';
 import { Subject, takeUntil } from 'rxjs';
+import { Category } from '../../../model/category';
 import { CategoryService } from '../../../services/category/category.service';
 import { DetailCategoryComponent } from '../detail-category/detail-category.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-list-category',
   standalone: true,
-  imports: [MatButtonModule, MatTableModule, MatProgressSpinnerModule],
+  imports: [
+    MatButtonModule,
+    MatTableModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+  ],
   templateUrl: './list-category.component.html',
   styleUrl: './list-category.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,9 +41,11 @@ export class ListCategoryComponent implements OnInit, OnDestroy {
   @ViewChild('detailContainer', { read: ViewContainerRef, static: true })
   containerRef!: ViewContainerRef;
   categoryData: Category[] = [];
+  originalCategoryData: Category[] = [];
   displayedColumns: string[] = ['name', 'description'];
   isDetailVisible = false;
   isLoading = false;
+  categoryKeyword = '';
   destroy$ = new Subject();
 
   constructor(
@@ -50,6 +64,7 @@ export class ListCategoryComponent implements OnInit, OnDestroy {
         next: (cate) => {
           this.isLoading = false;
           this.categoryData = cate;
+          this.originalCategoryData = cate;
           this.cd.detectChanges();
         },
         error: () => {
@@ -71,6 +86,7 @@ export class ListCategoryComponent implements OnInit, OnDestroy {
           const index = this.categoryData.findIndex((p) => p.id === value.id);
           this.categoryData[index] = value as Category;
           this.categoryData = [...this.categoryData];
+          this.originalCategoryData = this.categoryData;
         }
         this.containerRef.clear();
         this.isDetailVisible = false;
@@ -79,8 +95,10 @@ export class ListCategoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  onBackProduct() {
-    this.route.navigate(['product/list']);
+  searchCategory() {
+    this.categoryData = this.originalCategoryData.filter((cate) =>
+      cate.name.toLowerCase().includes(this.categoryKeyword.toLowerCase())
+    );
   }
 
   onCreateCategory() {

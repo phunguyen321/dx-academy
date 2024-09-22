@@ -13,14 +13,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormField } from '../../../constant/enum';
-import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
-import { CategoryService } from '../../../services/category/category.service';
 import { Guid } from 'guid-typescript';
+import { FormField } from '../../../constant/enum';
 import { Category } from '../../../model/category';
+import { CategoryService } from '../../../services/category/category.service';
 
 @Component({
   selector: 'app-detail-category',

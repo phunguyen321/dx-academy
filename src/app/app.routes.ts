@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './layout/login/login.component';
-import { ListProductComponent } from './layout/list-product/list-product.component';
 import { authGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
@@ -20,23 +18,23 @@ export const routes: Routes = [
       {
         path: 'list',
         loadComponent: () =>
-          import('./layout/list-product/list-product.component').then(
+          import('./layout/product/list-product/list-product.component').then(
             (mod) => mod.ListProductComponent
           ),
       },
       {
         path: 'edit:idProduct',
         loadComponent: () =>
-          import('./layout/detail-product/detail-product.component').then(
-            (mod) => mod.DetailProductComponent
-          ),
+          import(
+            './layout/product/detail-product/detail-product.component'
+          ).then((mod) => mod.DetailProductComponent),
       },
       {
         path: 'create',
         loadComponent: () =>
-          import('./layout/detail-product/detail-product.component').then(
-            (mod) => mod.DetailProductComponent
-          ),
+          import(
+            './layout/product/detail-product/detail-product.component'
+          ).then((mod) => mod.DetailProductComponent),
       },
     ],
   },

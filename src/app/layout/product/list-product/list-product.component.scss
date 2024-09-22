@@ -8,6 +8,24 @@
   border-color: currentColor;
 }
 
+:host {
+  .product {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    .mat-card-search {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .form-search {
+        display: flex;
+        gap: 8px;
+      }
+    }
+  }
+}
+
 .overlay {
   position: fixed;
   top: 0;
